@@ -1,0 +1,93 @@
+<div *ngIf="errorMessage || !tableName" class="empty-state">
+  <div *ngIf="errorMessage" class="error-banner">
+    <span [innerHTML]="errorMessage"></span>
+  </div>
+  <p *ngIf="!errorMessage">Select a table from the top menu to view data.</p> 
+</div>
+
+<div *ngIf="tableName && !errorMessage" class="data-container">
+
+  <div class="control-bar">
+    <div class="bar-left">
+      <h2>{{ tableName }}</h2>
+      <span *ngIf="!isLoading">{{ data.length }} Records</span>
+    </div>
+
+    <div class="bar-right">
+      <button class="data-btn" (click)="refresh.emit()">
+        <span class="refresh-btn">↻</span> Refresh Data
+      </button>
+      <button class="data-btn add-btn" (click)="openAdd.emit()">
+        <span>+</span> Add Record
+      </button>
+    </div>
+  </div>
+
+  <div class="table-scroll-container">
+
+    <div *ngIf="isLoading" class="loading-data">Loading data...</div>
+    <div *ngIf="!isLoading && data.length === 0" class="no-data"> No records found in this table.</div>
+
+    <table *ngIf="!isLoading && data.length > 0" class="data-table">
+      <thead>
+        <tr>
+          <ng-container *ngFor="let col of columns">
+            <th *ngIf="col !== 'id'" (click)="onSort(col)" class="sortable-header" [class.active-sort]="sortColumn === col">
+              {{ col }}
+              <span *ngIf="sortColumn === col" class="sort-arrow">
+                {{ sortDirection === 'asc' ? '▲' : '▼' }}
+              </span>
+              <span *ngIf="sortColumn !== col" class="sort-arrow placeholder">
+                -
+              </span>
+            </th>
+          </ng-container>
+          <th class="actions-col">actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of data">
+          <ng-container *ngFor="let col of columns">
+            <td *ngIf="col !== 'id'">
+              <ng-container [ngSwitch]="col">
+                
+                <div *ngSwitchCase="'response'" class="movies-cell">
+                  <ul class="mini-list" *ngIf="row[col] && row[col].length; else noResults">
+                    <li *ngFor="let movie of row[col]">
+                      <i>{{ movie.title }} </i>
+                      <span class="text-muted">({{ movie.release_date | date }})</span>
+                    </li>
+                  </ul>
+                  <ng-template #noResults><span class="text-muted">No results</span></ng-template>
+                </div>
+
+                <div *ngSwitchCase="'created_at'">{{ row[col] | date:'dd.MM.yy' }} <br/> {{ row[col] | date:'HH:mm' }}</div>
+                <div *ngSwitchCase="'updated_at'">{{ row[col] | date:'dd.MM.yy' }} <br/> {{ row[col] | date:'HH:mm' }}</div>
+                <div *ngSwitchCase="'release_date'">{{ row[col] | date }}</div>
+                <div *ngSwitchCase="'description'" class="description-cell">{{ row[col] }}</div>
+
+                <span *ngSwitchDefault>
+                  <ng-container *ngIf="isObject(row[col]); else simpleVal">
+                    <pre class="raw-json">{{ row[col] | json }}</pre>
+                  </ng-container>
+                  <ng-template #simpleVal>{{ row[col] }}</ng-template>
+                </span>
+
+              </ng-container>
+            </td>
+          </ng-container>
+
+          <td class="actions-cell">
+            <div class="actions-wrapper"> 
+              <button class="record-btn edit" (click)="openEdit.emit(row)">✎</button>
+              
+              <button class="record-btn edit" *ngIf="tableName === 'films'" (click)="openTags.emit(row)">#</button>
+              
+              <button class="record-btn delete" (click)="openDelete.emit(row)">✕</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

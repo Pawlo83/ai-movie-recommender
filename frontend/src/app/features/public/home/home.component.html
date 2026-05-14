@@ -1,0 +1,19 @@
+<div class="main-container"> 
+  <app-waiting-screen
+    [isInitialLoading]="isInitialLoading">
+  </app-waiting-screen>
+  <app-header></app-header>
+  <app-search-form 
+    [availableTags]="possibleTags"
+    (submitSearch)="handleSearch($event)">
+  </app-search-form>
+
+  <app-results
+    id="app-results"
+    [recommendations]="recommendations"
+    [isLoading]="isLoading"
+    [hasError]="hasError"
+    [hasSearched]="hasSearched">
+  </app-results>
+  <footer></footer>
+</div>

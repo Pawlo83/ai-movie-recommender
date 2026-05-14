@@ -1,0 +1,75 @@
+# Python (backend)
+__pycache__/
+*/__pycache__/
+backend/*.py[cod]
+backend/*.log
+backend/*.sqlite3
+backend/.venv/
+backend/.env
+backend/.env.*
+
+# Django (backend)
+backend/staticfiles/
+backend/media/
+backend/cached_vectors.pkl
+
+# Angular (frontend)
+frontend/node_modules/
+frontend/dist
+frontend/tmp
+frontend/out-tsc
+frontend/bazel-out
+
+# Node (frontend)
+frontend/node_modules
+frontend/npm-debug.log
+frontend/yarn-error.log
+
+# Global misc
+.env
+.DS_Store
+.vscode/
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+Thumbs.db
+
+# Backend misc
+backend/.DS_Store
+backend/.vscode/
+backend/.idea/
+
+# Frontdend misc
+frontend/.idea/
+frontend/.project
+frontend/.classpath
+frontend/.c9/
+frontend/*.launch
+frontend/.settings/
+frontend/*.sublime-workspace
+frontend/.vscode/*
+frontend/!.vscode/settings.json
+frontend/!.vscode/tasks.json
+frontend/!.vscode/launch.json
+frontend/!.vscode/extensions.json
+frontend/.history/*
+frontend/.angular/cache
+frontend/.sass-cache/
+frontend/connect.lock
+frontend/coverage
+frontend/libpeerconnection.log
+frontend/testem.log
+frontend/typings
+frontend/__screenshots__/
+frontend/Thumbs.db
+frontend/.DS_Store

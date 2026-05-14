@@ -1,0 +1,46 @@
+.header {
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+}
+
+.logo-mask {
+  width: 128px;
+  height: 128px;
+  margin: 128px auto 0 auto;
+  background-color: var(--accent-primary);
+
+  -webkit-mask: url('/logo.svg') no-repeat center / contain;
+  mask: url('/logo.svg') no-repeat center / contain;
+}
+
+.theme-toggle-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    overflow: visible;
+}
+
+#overlay {
+    transition: transform 0.5s ease-in-out;
+    transform-origin: center;
+}
+#overlay.mooned {
+    transform: translate(-90px, 90px);
+}
+#donut {
+    transition: fill 0.5s ease-in-out;
+    fill: var(--text-muted);
+}
+#blur feDropShadow{
+    flood-color: var(--text-muted);
+}

@@ -1,0 +1,136 @@
+.inputs-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 128px 0 24px 0;
+}
+
+.tags-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: 16px;
+    width: 600px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    position: relative;
+    width: 600px;
+    gap: 32px;
+}
+
+.input-tag {
+    height: 40px;
+    width: 256px;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 46px;
+    left: 21px;
+    
+    background: var(--bg-input);
+    border: none;
+    
+    border-radius: 20px;
+    width: 256px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+    z-index: 10;
+    max-height: auto;
+    font-size: 16px;
+}
+
+.autocomplete-item {
+    padding: 8px 16px;
+    line-height: 24px;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background-color 0.2s;
+    border-radius: 20px;
+}
+
+.autocomplete-item.highlighted, .autocomplete-item:hover {
+    background-color: var(--bg-highlight);
+    color: var(--text-inverse);
+}
+
+.stars {
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+    height: 40px;
+    padding-bottom: 2px;
+    gap: 4px;
+}
+
+.star {
+    font-size: 32px;
+    line-height: 38px;
+    color: var(--text-secondary);
+    transition: color 0.1s ease, transform 0.1s ease;
+}
+
+.star:hover {
+    color: var(--star-hover) !important;
+    transform: translateY(-1px);
+}
+
+.star.filled {
+    color: var(--star-filled);
+}
+
+.star:has(~ .star:hover){
+    color: var(--star-hover);
+}
+
+.star.star.filled:has(~ .star:hover){
+    color: var(--star-filled);
+}
+
+.star:hover ~ .star {
+    color: var(--text-secondary);
+}
+
+.star:hover ~ .star.star.filled {
+    color: var(--text-muted);
+}
+
+
+
+.delete-btn {
+    color: var(--text-muted);
+    font-size: 36px;
+    line-height: 34px;
+    padding-bottom: 6px;
+    height: 40px;
+    background: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: var(--error-shadow);
+}
+
+.description-container{
+    display: flex;
+    margin-left: 16px;
+    margin-right: auto;
+    width: 600px;
+}
+
+.input-description{
+    width: 600px;
+    height: 100px;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 16px 0 128px 0;
+}

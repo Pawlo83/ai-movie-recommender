@@ -1,0 +1,6 @@
+footer {
+    min-height: 64px;
+}
+#app-results {
+    scroll-margin-top: 64px; 
+}

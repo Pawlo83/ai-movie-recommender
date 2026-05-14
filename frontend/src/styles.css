@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Tiny5&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Tiny5&display=swap');
+:root {
+    --font-ui: "Google Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --bg-body: #f3f3f3;
+    --bg-body-gradient: #ebebeb;
+    --bg-input: #e4e4e4;
+    --bg-disabled: #d1d1d1;
+    --bg-card: #f9f9f9;
+    --bg-highlight: #8860f7;
+
+    --text-primary: #333333;
+    --text-secondary: #6e6e6e;
+    --text-muted: #888888;
+    --text-heading: #8860f7;
+    --text-card-title: #8860f7;
+    --text-inverse: #ffffff;
+
+    --border-input: #999999;
+    --border-card: #dddddd;
+
+    --accent-primary: #8860f7;
+    --accent-hover: #895d9b;
+    --accent-focus-shadow: rgba(107, 76, 195, 0.5);
+    
+    --star-hover: #ffb86c;
+    --star-filled: #e49744;
+    
+    --error-shadow: rgba(255, 85, 85, 0.6);
+
+    --shadow-card: rgba(0, 0, 0, 0.05);
+    --shadow-card-hover: rgba(30, 144, 255, 0.3);
+
+    --scrollbar-track: transparent; 
+    --scrollbar-thumb: #8d8d8d;
+}
+
+.dark-mode {
+    --bg-body: #202029;
+    --bg-body-gradient: #19191F;
+    --bg-input: #41434d;
+    --bg-disabled: #595a61;
+    --bg-card: #44475a;
+    --bg-highlight: #bd93f9; 
+
+    --text-primary: #f8f8f2;
+    --text-secondary: #e6e6e6;
+    --text-muted: #b0b0b0;
+    --text-heading: #bd93f9;
+    --text-card-title: #bd93f9;
+    --text-inverse: #282a36;
+
+    --border-input: #6272a4;
+    --border-card: #6272a4;
+
+    --accent-primary: #bd93f9;
+    --accent-hover: #ff79c6;
+    --accent-focus-shadow: rgba(189, 147, 249, 0.5);
+    
+    --star-hover: #ffb86c;
+    --star-filled: #e68e30;
+
+    --error-shadow: rgba(255, 85, 85, 0.6);
+
+    --shadow-card: rgba(0, 0, 0, 0.2);
+    --shadow-card-hover: rgba(139, 233, 253, 0.3);
+
+    --scrollbar-track: transparent;
+    --scrollbar-thumb: #8d8d8d;
+}
+
+
+
+body {
+    background: var(--bg-body);
+    background: linear-gradient(45deg, var(--bg-body) 27%, var(--bg-body-gradient) 100%);
+    color: var(--text-primary);
+    font-weight: 400;
+    font-family: var(--font-ui);
+    font-size: 16px;
+    height: 100vh; 
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.app-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+app-root {
+    display: block;
+    min-width: 1300px;   
+    width: 95vw;        
+    height: 100%; 
+    margin: 0 auto;      
+    
+}
+
+
+
+input, textarea{
+    font-family: inherit;
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 20px;
+    box-sizing: border-box;
+    transition: box-shadow 0.5s;
+    z-index: 3;
+    resize: none;
+}
+
+input[type="date"] {
+    color-scheme: light;
+}
+input[type="date"].dark-mode {
+    color-scheme: dark !important;
+}
+
+input:focus, textarea:focus{
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 16px var(--accent-focus-shadow);
+    outline: none;
+}
+
+.input-error {
+    box-shadow: 0 0 16px var(--error-shadow) !important;
+}
+
+button { 
+    font-family: inherit;
+    background-color: var(--accent-primary);
+    color: var(--text-inverse);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.5s, box-shadow 0.2s, color 0.5s;
+    align-self: center;
+}
+
+.submit-btn {
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 120px;
+    height: 40px;
+    border-radius: 20px;
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.3s ease;
+}
+
+.submit-btn:disabled {
+    background-color: var(--bg-disabled);
+    cursor: not-allowed;
+    box-shadow: none;
+    color: var(--text-inverse);
+}
+
+.submit-btn:hover:not(:disabled) {
+    background-color: var(--accent-hover);
+    box-shadow: 0 0px 12px var(--accent-focus-shadow);
+    transform: translateY(-2px);
+}
+
+::selection {
+    background-color: var(--accent-primary);
+    color: var(--text-inverse);
+}
+
+
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 20px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}

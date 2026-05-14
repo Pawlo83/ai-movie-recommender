@@ -1,0 +1,13 @@
+<header class="top-nav">
+  <h3>Admin Panel</h3>
+  <div class="table-buttons">
+    <button
+      *ngFor="let table of tables"
+      (click)="tableSelect.emit(table)"
+      class="nav-btn"
+      [class.active]="selectedTableName === table">
+      {{ table }}
+    </button>
+  </div>
+  <button class="logout-btn nav-btn" (click)="logout.emit()">Logout</button>
+</header>

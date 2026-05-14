@@ -1,0 +1,49 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Admin Login</h2>
+
+    <div *ngIf="error" class="error-banner">
+      <div class="error-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      </div>
+      <span>{{ error }}</span>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="username"
+          name="username"
+          required
+          autocomplete="username"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          autocomplete="current-password"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="submit-wrapper">
+        <button type="submit" class="submit-btn" [disabled]="isLoading || !isServerReady">
+          <span *ngIf="!isServerReady && !isServerOffline && !isServerReady">Connecting To Server</span>
+          <span *ngIf="!isLoading && isServerOffline">Server Offline</span>
+          <span *ngIf="!isLoading && isServerReady">Sign In</span>
+          <div *ngIf="isLoading" class="spinner-small"></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

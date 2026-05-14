@@ -1,0 +1,45 @@
+<div class="admin-layout">
+  
+  <app-header 
+    [tables]="availableTables" 
+    [selectedTableName]="selectedTableName" 
+    (tableSelect)="selectTable($event)"
+    (logout)="logout()">
+  </app-header>
+
+  <main class="content-area">
+    <app-data-table
+      [tableName]="selectedTableName"
+      [data]="tableData"
+      [columns]="tableColumns"
+      [isLoading]="isLoading"
+      [errorMessage]="errorMessage"
+      (refresh)="refreshTable()"
+      (openAdd)="openAdd()"
+      (openEdit)="openEdit($event)"
+      (openDelete)="openDelete($event)"
+      (openTags)="openTags($event)">
+    </app-data-table>
+  </main>
+
+  <app-crud-modal
+    *ngIf="modalMode"
+    [mode]="modalMode"
+    [columns]="tableColumns"
+    [inputRow]="selectedRow"
+    [tableName]="selectedTableName"
+    (close)="closeModals()"
+    (submitPayload)="handleCrudAction($event)">
+  </app-crud-modal>
+
+  <app-tags-modal
+    *ngIf="showTagsModal"
+    [tags]="filmTags"
+    [filmTitle]="currentFilmTitle"
+    [filmId]="currentFilmId"
+    [isLoading]="isLoadingTags"
+    (close)="closeModals()"
+    (tagAction)="handleTagAction($event)">
+  </app-tags-modal>
+
+</div>

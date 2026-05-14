@@ -1,0 +1,55 @@
+<div class="inputs-container">
+  <div class="tags-container">
+    <div class="row" *ngFor="let row of tagRows; let i = index" style="position: relative;">
+      
+      <input
+        id="input-{{i}}"
+        [value]="row.value"
+        (input)="onValueChange(i, $event.target.value)"
+        (keydown)="onKeyDown(i, $event)"
+        (focus)="onFocus(i)"
+        (blur)="onBlur(i)"
+        placeholder="Select a tag"
+        class="input-tag"
+        [class.input-error]="!row.valid && !row.focused && row.value"
+        autocomplete="off"
+      />
+
+      <div class="autocomplete-list" *ngIf="row.focused && getSuggestions(i).length">
+        <div
+          *ngFor="let tag of getSuggestions(i) | slice:0:visibleLimit; let j = index"
+          class="autocomplete-item"
+          [class.highlighted]="j === highlightedIndex[i]"
+          (mousedown)="selectSuggestion(i, tag)">
+          {{ tag }}
+        </div>
+      </div>
+
+      <div class="stars">
+        <span
+          *ngFor="let star of [1,2,3,4,5,6,7]"
+          class="star"
+          [class.filled]="row.rating >= star"
+          (click)="setRating(i, star)"
+        >&#9733;</span>
+      </div>
+
+      <button class="delete-btn" (click)="removeRow(i)" tabindex="-1" title="Remove row"
+        [style.visibility]="tagRows.length > 1 && row.value.trim() !== '' ? 'visible' : 'hidden'">
+        &times; 
+      </button>
+    </div>
+  </div>
+
+  <div class="description-container">
+    <textarea
+      class="input-description" 
+      placeholder="Describe a film you would like to watch"
+      [(ngModel)]="description"
+    ></textarea> 
+  </div>
+</div>
+
+<div class="submit-container">
+  <button class="submit-btn" (click)="onSubmit()" [disabled]="!canSubmit()">Submit</button>
+</div>

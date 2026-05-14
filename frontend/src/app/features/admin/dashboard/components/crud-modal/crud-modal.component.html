@@ -1,0 +1,46 @@
+<div class="modal-backdrop" *ngIf="mode === 'add' || mode === 'update'">
+  <div class="modal-card">
+    <h3>{{ mode === 'add' ? 'Add New Record' : 'Modify Record' }}</h3>
+    <div class="modal-body">
+      <ng-container *ngFor="let col of columns">
+        <div class="form-group" *ngIf="col !== 'id' && col !== 'created_at' && col !== 'updated_at'"> 
+          
+          <ng-container [ngSwitch]="col">
+            <span *ngSwitchCase="'request'">
+              <label>{{ col }}</label>
+              <textarea [name]="'field_' + col">{{currentRow[col] | json}}</textarea>
+            </span>
+            <span *ngSwitchCase="'response'">
+              <label>{{ col }}</label>
+              <textarea [name]="'field_' + col">{{currentRow[col] | json}}</textarea>
+            </span>
+            <span *ngSwitchCase="'release_date'">
+              <label>{{ col }}</label>
+              <input [(ngModel)]="currentRow[col]" [name]="'field_' + col" type="date">
+            </span>
+            <span *ngSwitchDefault>
+              <label>{{ col }}</label>
+              <input [(ngModel)]="currentRow[col]" [name]="'field_' + col">
+            </span>
+          </ng-container>
+
+        </div>
+      </ng-container>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="close.emit()">Cancel</button>
+      <button class="btn-save" (click)="confirmTransaction()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop delete-backdrop" *ngIf="mode === 'delete'">
+  <div class="modal-card delete-card">
+    <h3>Delete Record?</h3>
+    <p>Are you sure you want to delete this record?</p>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="close.emit()">Cancel</button>
+      <button class="btn-delete-confirm" (click)="confirmTransaction()">Delete</button>
+    </div>
+  </div>
+</div>

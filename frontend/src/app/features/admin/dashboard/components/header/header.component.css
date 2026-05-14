@@ -1,0 +1,65 @@
+button {
+    background-color: var(--bg-input);
+    color: var(--text-muted);
+    padding: 10px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 120px;
+    height: 40px;
+    border-radius: 20px;
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.3s ease;
+    cursor: pointer;
+}
+button:hover {
+    background-color: var(--bg-highlight);
+    color: var(--text-inverse);
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px var(--accent-focus-shadow);
+}
+.top-nav {
+    padding: 16px 8px 16px 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 80px;
+    flex-shrink: 0;
+    line-height: 48px;
+}
+.top-nav h3 {
+    margin: 0;
+    font-size: 32px;
+    line-height: 80px;
+    font-weight: 600;
+    color: var(--text-heading);
+    white-space: nowrap;
+}
+.table-buttons {
+    flex-grow: 1;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 8px 16px;
+    scrollbar-width: none;
+    height: 100%;
+}
+.table-buttons::-webkit-scrollbar { 
+    display: none; 
+}
+.nav-btn.active {
+    background-color: var(--accent-primary);
+    color: var(--text-inverse);
+    box-shadow: 0 0 12px var(--accent-focus-shadow);
+}
+.logout-btn {
+    background-color: transparent;
+    border: 2px solid var(--error-shadow);
+    color: var(--error-shadow);
+    transition: box-shadow 0.3s ease, background-color 0.3s, transform 0.3s ease, border 0.3s ease;
+    font-size: 14px;
+}
+.logout-btn:hover {
+    background-color: var(--error-shadow);
+    color: var(--text-inverse);
+    box-shadow: 0 0 12px var(--error-shadow);
+    border: none;
+}

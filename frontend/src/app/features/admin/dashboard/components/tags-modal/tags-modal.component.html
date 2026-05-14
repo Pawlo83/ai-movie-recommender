@@ -1,0 +1,27 @@
+<div class="modal-backdrop">
+  <div class="modal-card">
+    <h3>Manage Tags - <i>{{ filmTitle }}</i>:</h3>
+    
+    <div class="modal-body tags-body">
+      <ul class="tag-list" *ngIf="tags.length; else noTags">
+        <li *ngFor="let tag of tags" class="tag-item">
+          {{ tag }}
+          <button class="tag-remove" (click)="prepareRemoveTag(tag)" title="Remove Tag">✕</button>
+        </li>
+      </ul>
+      <ng-template #noTags>
+        <p class="text-muted">No tags assigned to this film.</p>
+      </ng-template>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="close.emit()">Close</button>
+      
+      <input class="tags-input" placeholder="Add new tag..." [(ngModel)]="newTagName" [disabled]="isLoading" (keyup.enter)="prepareAddTag()"/>
+      
+      <button class="btn-save" (click)="prepareAddTag()" [disabled]="isLoading"> 
+        {{ isLoading ? '...' : 'Add' }} 
+      </button>
+    </div>
+  </div>
+</div>
