@@ -1,5 +1,5 @@
-<details open>
 <a name="polish-version"></a>
+<details open>
 <summary><strong>🇵🇱 Polski</strong> &nbsp;|&nbsp; <a href="#english-version">🇬🇧 English below</a></summary>
 
 # System rekomendacji filmowych oparty na AI
