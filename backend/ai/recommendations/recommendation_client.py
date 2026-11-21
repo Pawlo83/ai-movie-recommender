@@ -8,7 +8,7 @@ from utils import unique_by_title
 from ai import extract_recommendations, build_database_movies, validate_enrich_recommendations
 from ai.prompts import build_system_prompt, build_instruction_prompt, build_functions_schema, build_message_prompt
 
-from clients import openai_client
+from clients import openai_client, RECOMMENDATION_MODEL
 
 logger = logging.getLogger(__name__)
 MIN_DB_MOVIES_SEND = 50
@@ -81,10 +81,10 @@ def _call_openai_recommendations(original_criterions: list[dict], db_mapped_crit
         logger.info("Wysłano do AI.")
 
         completion = openai_client.chat.completions.create(
-            model="gpt-5-mini",
+            model=RECOMMENDATION_MODEL,
             messages=messages,
-            functions=function_schema,
-            function_call="auto"
+            tools=function_schema,
+            tool_choice="auto"
         )
 
         logger.info("Odpowiedź od AI - PRZED obróbką:")

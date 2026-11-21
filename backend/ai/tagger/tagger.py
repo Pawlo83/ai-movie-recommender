@@ -5,7 +5,8 @@ from pprint import pformat
 from services.supabase.gpt_cache import cache_film
 from services.supabase.tags import get_tags, get_tag_id_map
 from ai.prompts import build_tagging_system_prompt, build_tagging_function_schema
-from clients import openai_client
+from ai.recommendations.parser import extract_function_arguments
+from clients import openai_client, TAGGER_MODEL
 
 logger = logging.getLogger(__name__)
 
@@ -46,14 +47,13 @@ def tagger(movies: list[dict]):
         }
 
         completion = openai_client.chat.completions.create(
-            model="gpt-5-nano",
+            model=TAGGER_MODEL,
             messages=[system, user_msg],
-            functions=build_tagging_function_schema(),
-            function_call="auto"
+            tools=build_tagging_function_schema(),
+            tool_choice="auto"
         )
 
-        raw = completion.choices[0].message.function_call.arguments
-        parsed = json.loads(raw)
+        parsed = extract_function_arguments(completion)
 
         logger.info("Odpowiedź AI (raw):")
         logger.info(json.dumps(parsed, indent=2, ensure_ascii=False))
