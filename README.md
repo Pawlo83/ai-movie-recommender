@@ -73,7 +73,7 @@ Cały proces jest bezstanowy - nie korzysta z historii oglądania ani profilu u�
 * Python 3.12+
 * Node.js 20+ oraz Angular CLI (`npm install -g @angular/cli`)
 * Konto Supabase z wypełnionym schematem (skrypt: `database_scripts/schema.sql`)
-* Klucz OpenAI API
+* Klucz API dostawcy zgodnego ze standardem OpenAI
 * Klucz TMDB API
 
 ### Backend
@@ -95,7 +95,10 @@ Utwórz plik `.env` w katalogu `backend/` i uzupełnij zmienne:
 | `CORS_ALLOWED_ORIGINS` | Adres frontendu (np. `http://localhost:4200`) |
 | `SUPABASE_URL` | URL projektu Supabase |
 | `SUPABASE_KEY` | Klucz Supabase |
-| `OPENAI_API_KEY` | Klucz OpenAI API |
+| `OPENAI_API_KEY` | Klucz API dostawcy zgodnego ze standardem OpenAI |
+| `OPENAI_BASE_URL` | Opcjonalny adres API zgodnego ze standardem OpenAI (np. `https://opencode.ai/inference/openai/v1`); pusty = OpenAI |
+| `OPENAI_RECOMMENDATION_MODEL` | Model do rekomendacji (domyślnie `gpt-5-mini`) |
+| `OPENAI_TAGGER_MODEL` | Model do automatycznego tagowania (domyślnie `gpt-5-nano`) |
 | `TMDB_API_KEY` | Klucz TMDB API |
 
 ```bash
@@ -198,7 +201,7 @@ The entire process is stateless — it uses no watch history or user profile. Th
 * Python 3.12+
 * Node.js 20+ and Angular CLI (`npm install -g @angular/cli`)
 * A Supabase account with the schema applied (`database_scripts/schema.sql`)
-* OpenAI API key
+* An OpenAI-compatible API key
 * TMDB API key
 
 ### Backend
@@ -220,7 +223,10 @@ Create a `.env` file inside `backend/` and fill in the following variables:
 | `CORS_ALLOWED_ORIGINS` | Frontend origin (e.g. `http://localhost:4200`) |
 | `SUPABASE_URL` | Your Supabase project URL |
 | `SUPABASE_KEY` | Supabase key |
-| `OPENAI_API_KEY` | OpenAI API key |
+| `OPENAI_API_KEY` | OpenAI-compatible API key |
+| `OPENAI_BASE_URL` | Optional OpenAI-compatible API base URL (e.g. `https://opencode.ai/inference/openai/v1`); empty = OpenAI |
+| `OPENAI_RECOMMENDATION_MODEL` | Recommendations model (default `gpt-5-mini`) |
+| `OPENAI_TAGGER_MODEL` | Auto-tagging model (default `gpt-5-nano`) |
 | `TMDB_API_KEY` | TMDB API key |
 
 ```bash

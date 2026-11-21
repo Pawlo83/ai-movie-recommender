@@ -1,6 +1,6 @@
 def build_functions_schema() -> list[dict]:
     """
-    Definiuje schemat wywołania funkcji (function calling) wykorzystywany przez model OpenAI
+    Definiuje schemat narzędzia (tool calling) wykorzystywany przez model OpenAI
     do zwracania rekomendacji filmowych w ściśle ustrukturyzowanym formacie JSON.
 
     Schemat wymusza:
@@ -26,30 +26,37 @@ def build_functions_schema() -> list[dict]:
     """
     return [
         {
-            "name": "generate_recommendations",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "recommendations": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "title": {"type": "string"},
-                                "candidate_tmdb_id": {"type": ["integer", "null"]},
-                                "candidate_release_date": {"type": ["string", "null"]},
-                                "tmdb_id_verification": {"type": "string", "enum": ["exact","approximate","unknown"]},
-                                "release_date_verification": {"type": "string", "enum": ["exact","approximate","unknown"]},
-                                "overview": {"type": ["string","null"]},
-                                "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
-                                "synthesis": {"type": "boolean"},
-                                "selection_reason": {"type": ["string","null"]}
-                            },
-                            "required": ["title","candidate_tmdb_id","candidate_release_date","tmdb_id_verification","release_date_verification","overview","confidence","synthesis","selection_reason"]
+            "type": "function",
+            "function": {
+                "name": "generate_recommendations",
+                "description": (
+                    "Zwraca dokładnie 10 rekomendacji filmowych dopasowanych "
+                    "do kryteriów użytkownika."
+                ),
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "recommendations": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {"type": "string"},
+                                    "candidate_tmdb_id": {"type": ["integer", "null"]},
+                                    "candidate_release_date": {"type": ["string", "null"]},
+                                    "tmdb_id_verification": {"type": "string", "enum": ["exact", "approximate", "unknown"]},
+                                    "release_date_verification": {"type": "string", "enum": ["exact", "approximate", "unknown"]},
+                                    "overview": {"type": ["string", "null"]},
+                                    "confidence": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+                                    "synthesis": {"type": "boolean"},
+                                    "selection_reason": {"type": ["string", "null"]}
+                                },
+                                "required": ["title", "candidate_tmdb_id", "candidate_release_date", "tmdb_id_verification", "release_date_verification", "overview", "confidence", "synthesis", "selection_reason"]
+                            }
                         }
-                    }
-                },
-                "required": ["recommendations"]
+                    },
+                    "required": ["recommendations"]
+                }
             }
         }
     ]
