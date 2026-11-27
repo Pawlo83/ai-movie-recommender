@@ -2,14 +2,14 @@ import logging
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_safe
 from django.middleware.csrf import get_token
 
 from services.supabase.tags import get_tag_usage
 
 logger = logging.getLogger(__name__)
 
-@require_GET
+@require_safe
 @ensure_csrf_cookie
 def ping(request):
     """
@@ -24,7 +24,7 @@ def ping(request):
     })
 
 
-@require_GET
+@require_safe
 def tags_json(request):
     """
     Zwraca najczęściej używane tagów w bazie.

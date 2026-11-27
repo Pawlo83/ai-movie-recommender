@@ -9,6 +9,8 @@ from sentence_transformers import SentenceTransformer
 from supabase import create_client
 from .lang_configs import SUPABASE_URL, SUPABASE_KEY
 
+SIMILARITY_MODEL_NAME = 'paraphrase-MiniLM-L3-v2'
+
 # Stan Globalny
 RESOURCES = {
     "supabase": None,
@@ -55,7 +57,7 @@ def initialize_tagger():
         live_db_tags = []
 
     try:
-        sim_model = SentenceTransformer('paraphrase-MiniLM-L3-v2')
+        sim_model = SentenceTransformer(SIMILARITY_MODEL_NAME)
         RESOURCES["similarity_model"] = sim_model
 
         final_tags = []
@@ -70,6 +72,16 @@ def initialize_tagger():
             print(f"[INFO] Znaleziono cache: {cache_path}. Wczytywanie...")
             with open(cache_path, "rb") as f:
                 cached_data = pickle.load(f)
+
+            cached_model = cached_data.get("model")
+            cached_dim = cached_data.get("dim")
+            model_dim = sim_model.get_sentence_embedding_dimension()
+
+            if cached_model and cached_model != SIMILARITY_MODEL_NAME:
+                print(f"[WARN] Cache pochodzi z modelu '{cached_model}' - ignoruję, liczę od nowa.")
+            elif cached_dim and model_dim and cached_dim != model_dim:
+                print(f"[WARN] Cache ma {cached_dim} wymiarów zamiast {model_dim} - ignoruję.")
+            else:
                 final_tags = cached_data["texts"]
                 final_vectors = cached_data["vectors"]
                 cached_tags_set = set(final_tags)
