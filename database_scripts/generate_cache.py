@@ -9,6 +9,11 @@ load_dotenv()
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
+MODEL_NAME = "paraphrase-MiniLM-L3-v2"
+CACHE_PATH = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "..", "backend", "cached_vectors.pkl"
+)
+
 def generate_vector_cache():
     print("--- START GENEROWANIA CACHE ---")
     
@@ -29,22 +34,24 @@ def generate_vector_cache():
     print(f"      Pobrano {len(texts)} rekordów.")
 
     print("[2/4] Ładowanie modelu SentenceTransformer (to może chwilę potrwać)...")
-    model = SentenceTransformer('paraphrase-MiniLM-L3-v2')
+    model = SentenceTransformer(MODEL_NAME)
 
     print("[3/4] Generowanie wektorów (nie wyłączaj komputera)...")
     vectors = model.encode(texts, show_progress_bar=True, convert_to_numpy=True)
 
-    print("[4/4] Zapisywanie do pliku 'cached_vectors.pkl'...")
+    print(f"[4/4] Zapisywanie do pliku '{CACHE_PATH}'...")
     data_to_save = {
+        "model": MODEL_NAME,
+        "dim": int(vectors.shape[1]),
         "texts": texts,
-        "vectors": vectors
+        "vectors": vectors,
     }
-    
-    with open("cached_vectors.pkl", "wb") as f:
-        pickle.dump(data_to_save, f)
-    
-    print("\nSUKCES! Plik 'cached_vectors.pkl' został utworzony.")
-    print("Teraz wykonaj: git add cached_vectors.pkl && git commit -m 'Add cache' && git push")
+
+    with open(CACHE_PATH, "wb") as f:
+        pickle.dump(data_to_save, f, protocol=4)
+
+    print(f"\nSUKCES! Plik '{CACHE_PATH}' został utworzony.")
+    print("Cache jest wersjonowany w repo - commitnij go, żeby trafił na Render.")
 
 if __name__ == "__main__":
     generate_vector_cache()

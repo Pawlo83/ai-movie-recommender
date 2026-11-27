@@ -11,7 +11,9 @@ backend/.env.*
 # Django (backend)
 backend/staticfiles/
 backend/media/
-backend/cached_vectors.pkl
+# backend/cached_vectors.pkl is generated but tracked on purpose: it holds the
+# tag embeddings so gunicorn does not re-encode ~7.4k tags at worker boot.
+# Regenerate (database_scripts/generate_cache.py) after bulk tag changes.
 
 # Angular (frontend)
 frontend/node_modules/
